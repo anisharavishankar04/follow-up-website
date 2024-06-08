@@ -53,6 +53,8 @@
     <div class="delete-container">
         <h2>Delete Appointment</h2>
         <form id="delete-form">
+            <label for="patient-id">Patient ID:</label>
+            <input type="text" id="patient-id" required>
             <label for="patient-name">Patient Name:</label>
             <input type="text" id="patient-name" required>
             <label for="appointment-date">Appointment Date:</label>
@@ -65,6 +67,7 @@
     <script>
         document.getElementById('delete-form').addEventListener('submit', function(event) {
             event.preventDefault();
+            const patientID = document.getElementById('patient-id').value;
             const patientName = document.getElementById('patient-name').value;
             const appointmentDate = document.getElementById('appointment-date').value;
             const appointmentTime = document.getElementById('appointment-time').value;
@@ -75,7 +78,8 @@
 
                 // Filter out the appointment that matches the criteria
                 appointments = appointments.filter(appointment => {
-                    return !(appointment.patientName === patientName &&
+                    return !(appointment.patientID === patientID &&
+                        appointment.patientName === patientName &&
                         appointment.appointmentDate === appointmentDate &&
                         appointment.appointmentTime === appointmentTime);
                 });
