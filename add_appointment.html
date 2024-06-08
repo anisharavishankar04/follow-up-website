@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Appointment</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        form {
+            width: 350px;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        select, input[type="text"], input[type="date"], input[type="time"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <form id="appointment-form">
+        <h1>Add Appointment</h1>
+        <label for="doctor-name">Doctor's Name:</label>
+        <select id="doctor-name" name="doctor-name" required>
+            <option value="" disabled selected>Select a doctor</option>
+            <option value="Dr. Smith">Dr. Smith</option>
+            <option value="Dr. Johnson">Dr. Johnson</option>
+            <option value="Dr. Brown">Dr. Brown</option>
+            <option value="Dr. Williams">Dr. Williams</option>
+        </select>
+
+        <label for="patient-name">Patient Name:</label>
+        <input type="text" id="patient-name" name="patient-name" required>
+
+        <label for="patient-dob">Patient Date of Birth:</label>
+        <input type="date" id="patient-dob" name="patient-dob" required>
+
+        <label for="appointment-date">Appointment Date:</label>
+        <input type="date" id="appointment-date" name="appointment-date" required>
+
+        <label for="appointment-time">Appointment Time:</label>
+        <input type="time" id="appointment-time" name="appointment-time" required>
+
+        <button type="submit">Save Appointment</button>
+    </form>
+
+    <script>
+        document.getElementById('appointment-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Get form data
+            const formData = {
+                doctor: document.getElementById('doctor-name').value,
+                patientName: document.getElementById('patient-name').value,
+                dob: document.getElementById('patient-dob').value,
+                date: document.getElementById('appointment-date').value,
+                time: document.getElementById('appointment-time').value
+            };
+
+            // Get existing appointments from localStorage or initialize to empty array
+            let appointments = JSON.parse(localStorage.getItem('appointments')) || [];
+
+            // Add new appointment to the array
+            appointments.push(formData);
+
+            // Save updated appointments array to localStorage
+            localStorage.setItem('appointments', JSON.stringify(appointments));
+
+            // Redirect to the appointments display page
+            window.location.href = 'appointments.html';
+        });
+    </script>
+</body>
+</html>
