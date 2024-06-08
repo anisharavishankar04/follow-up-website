@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Appointment</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .delete-container { width: 300px; margin: 0 auto; padding-top: 100px; }
+        input { width: 100%; padding: 10px; margin: 5px 0; }
+        button { width: 100%; padding: 10px; background-color: #FF6347; color: white; border: none; }
+    </style>
+</head>
+<body>
+    <div class="delete-container">
+        <h2>Delete Appointment</h2>
+        <form id="delete-form">
+            <label for="patient-name">Patient Name:</label>
+            <input type="text" id="patient-name" required>
+            <label for="appointment-date">Appointment Date:</label>
+            <input type="date" id="appointment-date" required>
+            <label for="appointment-time">Appointment Time:</label>
+            <input type="time" id="appointment-time" required>
+            <button type="submit">Delete Appointment</button>
+        </form>
+    </div>
+    <script>
+        document.getElementById('delete-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const patientName = document.getElementById('patient-name').value;
+            const appointmentDate = document.getElementById('appointment-date').value;
+            const appointmentTime = document.getElementById('appointment-time').value;
+
+            let appointments = localStorage.getItem('appointments');
+            if (appointments) {
+                appointments = JSON.parse(appointments);
+
+                // Filter out the appointment that matches the criteria
+                appointments = appointments.filter(appointment => {
+                    return !(appointment.patientName === patientName &&
+                             appointment.appointmentDate === appointmentDate &&
+                             appointment.appointmentTime === appointmentTime);
+                });
+
+                // Save the updated appointments back to localStorage
+                localStorage.setItem('appointments', JSON.stringify(appointments));
+                alert('Appointment deleted successfully.');
+
+                // Redirect to the upcoming appointments page to see the changes
+                window.location.href = 'upcoming_appointments.html';
+            } else {
+                alert('No appointments found.');
+            }
+        });
+    </script>
+</body>
+</html>
