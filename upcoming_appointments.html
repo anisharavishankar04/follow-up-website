@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upcoming Appointments</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+        .nav {
+            display: flex;
+            justify-content: center;
+            background-color: #333;
+        }
+        .nav a {
+            color: white;
+            padding: 14px 20px;
+            text-decoration: none;
+            text-align: center;
+        }
+        .nav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        .content-section {
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .content-section h2 {
+            color: #333;
+            text-align: center;
+        }
+        .appointment-list {
+            width: 80%;
+            max-width: 800px;
+            margin: 0 auto;
+            border-collapse: collapse;
+        }
+        .appointment-list th, .appointment-list td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .appointment-list th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .appointment-list tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+        .footer a {
+            color: white;
+            text-decoration: none;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const patient = JSON.parse(localStorage.getItem('currentPatient')); // Get the current patient's details
+
+            if (patient) {
+                let appointments = localStorage.getItem('appointments');
+                if (appointments) {
+                    appointments = JSON.parse(appointments);
+                    const table = document.getElementById('appointment-table-body');
+                    appointments.forEach(appointment => {
+                        if (appointment.patientID === patient.id) {
+                            const row = document.createElement('tr');
+                            row.innerHTML = `
+                                <td>${appointment.appointmentDate}</td>
+                                <td>${appointment.appointmentTime}</td>
+                                <td>${appointment.doctorName}</td>
+                                <td>${appointment.patientName}</td>
+                                <td>${appointment.patientID}</td>
+                            `;
+                            table.appendChild(row);
+                        }
+                    });
+                }
+            }
+        });
+    </script>
+</head>
+<body>
+    <header class="header">
+        <h1>Upcoming Appointments</h1>
+    </header>
+    <nav class="nav">
+        <a href="homepage.html">Home</a>
+    </nav>
+    <div class="content-section">
+        <h2>Your Upcoming Appointments</h2>
+        <table class="appointment-list">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Doctor</th>
+                    <th>Patient</th>
+                    <th>Patient ID</th>
+                </tr>
+            </thead>
+            <tbody id="appointment-table-body">
+                <!-- Appointments will be loaded here -->
+            </tbody>
+        </table>
+    </div>
+    <footer class="footer">
+        <p>Contact Information: 123 Healthcare St., Wellness City, HC 12345 | Phone: 123-456-7890 | Email: info@yourclinic.com</p>
+        <p>
+            <a href="#">Privacy Policy</a> | 
+            <a href="#">Terms of Service</a>
+        </p>
+    </footer>
+</body>
+</html>
