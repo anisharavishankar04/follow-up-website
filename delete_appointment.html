@@ -5,10 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Delete Appointment</title>
     <style>
-        body { font-family: Arial, sans-serif; }
-        .delete-container { width: 300px; margin: 0 auto; padding-top: 100px; }
-        input { width: 100%; padding: 10px; margin: 5px 0; }
-        button { width: 100%; padding: 10px; background-color: #FF6347; color: white; border: none; }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .delete-container {
+            width: 300px;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            text-align: center; /* Center text within the container */
+        }
+
+        input {
+            width: calc(100% - 20px); /* Adjusted width to account for padding */
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            width: calc(100% - 20px); /* Adjusted width to account for padding */
+            padding: 10px;
+            margin-top: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
     </style>
 </head>
 <body>
@@ -38,8 +76,8 @@
                 // Filter out the appointment that matches the criteria
                 appointments = appointments.filter(appointment => {
                     return !(appointment.patientName === patientName &&
-                             appointment.appointmentDate === appointmentDate &&
-                             appointment.appointmentTime === appointmentTime);
+                        appointment.appointmentDate === appointmentDate &&
+                        appointment.appointmentTime === appointmentTime);
                 });
 
                 // Save the updated appointments back to localStorage
