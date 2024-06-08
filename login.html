@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .login-container { width: 300px; margin: 0 auto; padding-top: 100px; }
+        input { width: 100%; padding: 10px; margin: 5px 0; }
+        button { width: 100%; padding: 10px; background-color: #4CAF50; color: white; border: none; }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Login</h2>
+        <form id="login-form">
+            <label for="patient-name">Name:</label>
+            <input type="text" id="patient-name" required>
+            <label for="patient-id">ID:</label>
+            <input type="text" id="patient-id" required>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+    <script>
+        document.getElementById('login-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const patientName = document.getElementById('patient-name').value;
+            const patientID = document.getElementById('patient-id').value;
+            localStorage.setItem('currentPatient', JSON.stringify({ name: patientName, id: patientID }));
+            window.location.href = 'homepage.html'; 
+        });
+    </script>
+</body>
+</html>
